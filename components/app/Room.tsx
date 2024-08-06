@@ -9,14 +9,18 @@ interface Props {
 }
 
 export const Room = ({ children, roomId, fallback }: Props) => {
-    const apiKey = process.env.NEXT_PUBLIC_LIVEBLOCKS_PUBLIC_API_KEY!
 
     return (
         <LiveblocksProvider
-            // publicApiKey={apiKey}
-            authEndpoint={ "/api/liveblocks-auth" }
+            authEndpoint={"/api/liveblocks-auth"}
+            throttle={16}
         >
-            <RoomProvider id={roomId} initialPresence={{}}>
+            <RoomProvider
+                id={roomId}
+                initialPresence={{
+                    cursor: null
+                }}
+            >
                 <ClientSideSuspense
                     fallback={fallback}
                 >
